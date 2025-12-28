@@ -83,6 +83,7 @@ const customConfig = defineConfig({
           400: { value: "#D1BC9A" },
           500: { value: "#BFA57A" },
           600: { value: "#A58E5F" },
+          700: { value: "#FFDA58" },
         },
 
         // Gray
