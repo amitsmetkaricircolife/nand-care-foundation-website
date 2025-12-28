@@ -1,6 +1,14 @@
 "use client";
 
-import { Box, Flex, Button, Container, HStack, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Button,
+  Container,
+  HStack,
+  VStack,
+  Image,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/constants/navigation";
@@ -43,7 +51,7 @@ export default function Header({ transparent = false }) {
           maxW="var(--content-max-width)"
           h="100%"
           px={{ base: 6, md: 8, lg: 12 }}
-          mx="auto" // Explicit center alignment
+          mx="auto"
         >
           <Flex justify="space-between" align="center" h="100%">
             {/* Logo */}
@@ -52,15 +60,16 @@ export default function Header({ transparent = false }) {
                 <Box
                   w={{ base: "35px", md: "40px" }}
                   h={{ base: "35px", md: "40px" }}
-                  bg={isTransparent ? "whiteAlpha.300" : "blue.500"}
-                  borderRadius="md"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
+                  position="relative"
                   transition="all 0.3s ease"
-                  backdropFilter={isTransparent ? "blur(10px)" : "none"}
                 >
-                  <Box w="60%" h="60%" bg="white" borderRadius="sm" />
+                  <Image
+                    src="/images/mainlogo.png"
+                    alt="Nand Care Foundation Logo"
+                    width="100%"
+                    height="100%"
+                    objectFit="contain"
+                  />
                 </Box>
                 <Box
                   fontSize={{
@@ -184,7 +193,7 @@ export default function Header({ transparent = false }) {
             maxW="var(--content-max-width)"
             h="100%"
             px={{ base: 6, md: 8, lg: 12 }}
-            mx="auto" // Explicit center alignment
+            mx="auto"
           >
             <VStack gap={6} align="stretch">
               {NAV_ITEMS.map((item) => {

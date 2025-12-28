@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://yourdomain.com"),
+  metadataBase: new URL("https://nandcarefoundation.dnyindia.in"),
   title: {
     default: "Nand Care Foundation | Making a Difference",
     template: "%s | Nand Care Foundation",
@@ -24,7 +24,7 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://yourdomain.com",
+    url: "https://nandcarefoundation.dnyindia.in",
     siteName: "Nand Care Foundation",
     title: "Nand Care Foundation | Making a Difference",
     description:
