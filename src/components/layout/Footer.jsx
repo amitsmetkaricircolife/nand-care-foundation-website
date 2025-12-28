@@ -24,7 +24,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <Box as="footer" bg="gray.800" color="white">
+    <Box as="footer" bg="#3B3B3B" color="white">
       {/* Main Footer Content */}
       <Container
         maxW="var(--content-max-width)"
