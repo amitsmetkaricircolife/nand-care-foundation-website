@@ -11,8 +11,9 @@ import WhatOurDonorsSay from "./WhatOurDonorsSay";
 import WhyChooseSection from "./WhyChooseSection";
 
 export const metadata = {
-  title: "Home",
-  description: "Welcome to Nand Care Foundation - Making a positive impact",
+  title: "Nand Care Foundation | Making a positive impact",
+  description:
+    "Join Nand Care Foundation in creating lasting change. Your secure online donation funds education, healthcare, and crisis relief for communities in need. Every contribution makes a difference. Donate today.",
 };
 
 export default function HomePage() {

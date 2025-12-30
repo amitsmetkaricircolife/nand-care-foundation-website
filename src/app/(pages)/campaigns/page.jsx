@@ -3,8 +3,9 @@ import { Box, Container } from "@chakra-ui/react";
 import FeaturedCampaignMainSection from "./FeaturedCampaignMainSection";
 
 export const metadata = {
-  title: "Campaigns",
-  description: "Welcome to Nand Care Foundation - Making a positive impact",
+  title: "Active Donation Campaigns | Support Clean Water & Education",
+  description:
+    "Explore our urgent donation campaigns. See exactly how your gift helps—from building wells to funding schools. Real-time updates, transparent goals, and direct impact stories. Fund a campaign now.",
 };
 
 export default function CampaignsPage() {

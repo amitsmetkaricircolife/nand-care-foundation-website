@@ -3,9 +3,9 @@ import PageLayout from "@/components/layout/PageLayout";
 import AboutUsMainSection from "./AboutUsMainSection";
 
 export const metadata = {
-  title: "About Us",
+  title: "About Nand Care Foundation | Our Mission, Vision & Impact Story",
   description:
-    "Learn more about Nand Care Foundation and our mission to make a difference",
+    "Discover the story behind Nand Care Foundation. Learn about our mission, our dedicated team, and the core values that guide our work in sustainable community development and humanitarian aid since 2020.",
 };
 
 export default function AboutUsPage() {
