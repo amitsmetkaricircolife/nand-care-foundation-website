@@ -10,6 +10,11 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { LuTrendingUp } from "react-icons/lu";
+import { motion } from "framer-motion";
+
+const MotionBox = motion(Box);
+const MotionFlex = motion(Flex);
+const MotionVStack = motion(VStack);
 
 const timelineData = [
   {
@@ -49,7 +54,15 @@ export default function ImpactTimeLineSection() {
     <Box bg="white" py={{ base: 12, md: 16 }}>
       <Container maxW="900px" px={{ base: 6, md: 8 }}>
         {/* Section Header */}
-        <Flex align="center" gap={2} mb={8}>
+        <MotionFlex
+          align="center"
+          gap={2}
+          mb={8}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <Icon as={LuTrendingUp} boxSize={6} color="gray.900" />
           <Heading
             as="h2"
@@ -59,10 +72,24 @@ export default function ImpactTimeLineSection() {
           >
             Impact Timeline
           </Heading>
-        </Flex>
+        </MotionFlex>
 
         {/* Timeline */}
-        <VStack align="stretch" gap={0} position="relative">
+        <MotionVStack
+          align="stretch"
+          gap={0}
+          position="relative"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+        >
           {/* Vertical Line */}
           <Box
             position="absolute"
@@ -74,7 +101,17 @@ export default function ImpactTimeLineSection() {
           />
 
           {timelineData.map((item, index) => (
-            <Flex key={index} gap={4} position="relative" pb={6}>
+            <MotionFlex
+              key={index}
+              gap={4}
+              position="relative"
+              pb={6}
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0 },
+              }}
+              transition={{ duration: 0.4 }}
+            >
               {/* Green Dot */}
               <Box
                 w="24px"
@@ -95,6 +132,11 @@ export default function ImpactTimeLineSection() {
                 borderRadius="12px"
                 p={5}
                 boxShadow="0 1px 3px rgba(0,0,0,0.05)"
+                _hover={{
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  borderColor: "gray.300",
+                }}
+                transition="all 0.2s"
               >
                 <Flex justify="space-between" align="start" mb={2}>
                   <Box>
@@ -118,9 +160,9 @@ export default function ImpactTimeLineSection() {
                   {item.action}
                 </Text>
               </Box>
-            </Flex>
+            </MotionFlex>
           ))}
-        </VStack>
+        </MotionVStack>
       </Container>
     </Box>
   );

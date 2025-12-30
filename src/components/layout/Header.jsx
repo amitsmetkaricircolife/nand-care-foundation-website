@@ -108,12 +108,11 @@ export default function Header({ transparent = false }) {
                 </Box>
                 <Box
                   fontSize={{
-                    base: "12px",
-                    sm: "13px",
-                    md: "14px",
-                    lg: "16px",
-                    xl: "17px",
-                    "2xl": "18px",
+                    base: "lg",
+                    sm: "lg",
+                    md: "xl",
+                    lg: "xl",
+                    xl: "xl",
                   }}
                   fontWeight="600"
                   color={isTransparent ? "black" : "gray.800"}
