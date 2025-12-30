@@ -3,7 +3,7 @@ import { Box, Container } from "@chakra-ui/react";
 import FeaturedCampaignMainSection from "./FeaturedCampaignMainSection";
 
 export const metadata = {
-  title: "Home",
+  title: "Campaigns",
   description: "Welcome to Nand Care Foundation - Making a positive impact",
 };
 

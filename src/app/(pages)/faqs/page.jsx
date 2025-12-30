@@ -61,7 +61,7 @@ export default function FAQsPage() {
     {
       question: "How can I contact Nand Care Foundation?",
       answer:
-        "You can reach us via email at info@nandcare.org, call us at +91 (800) 123-4567, or use the contact form on our website. Our support team is available Monday to Friday, 9 AM to 6 PM IST.",
+        "You can reach us via email at [info@nandcare.org](mailto:info@nandcare.org), call us at +91 (800) 123-4567, or use the contact form on our website. Our support team is available Monday to Friday, 9 AM to 6 PM IST.",
     },
   ];
 
@@ -69,10 +69,11 @@ export default function FAQsPage() {
     <PageLayout transparentHeader={false}>
       <Box pt="var(--header-height)">
         {/* Hero Section */}
-        <Box bg="tertiary.50" py={{ base: 16, md: 20 }}>
+        <Box bg="tertiary.200" py={{ base: 16, md: 20 }}>
           <Container
             maxW="var(--content-max-width)"
             px={{ base: 6, md: 8, lg: 12 }}
+            textAlign="center"
           >
             <Heading
               as="h1"
@@ -86,6 +87,7 @@ export default function FAQsPage() {
               fontSize={{ base: "lg", md: "xl" }}
               color="gray.700"
               maxW="700px"
+              mx="auto"
             >
               Find answers to common questions about donations, campaigns, and
               our services.

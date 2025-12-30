@@ -1,0 +1,127 @@
+"use client";
+import React from "react";
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  VStack,
+  Flex,
+  Icon,
+} from "@chakra-ui/react";
+import { LuTrendingUp } from "react-icons/lu";
+
+const timelineData = [
+  {
+    name: "Aravinthraj",
+    amount: "₹1,000",
+    action: "Supported school meals for 20 kids 🍛",
+    time: "4 hours ago",
+  },
+  {
+    name: "Anonymous",
+    amount: "₹1,000",
+    action: "Supported school meals for 20 kids 🍛",
+    time: "4 hours ago",
+  },
+  {
+    name: "Priya Sharma",
+    amount: "₹1,000",
+    action: "Supported school meals for 20 kids 🍛",
+    time: "4 hours ago",
+  },
+  {
+    name: "Ashish",
+    amount: "₹1,000",
+    action: "Supported school meals for 20 kids 🍛",
+    time: "4 hours ago",
+  },
+  {
+    name: "Suraj",
+    amount: "₹1,000",
+    action: "Supported school meals for 20 kids 🍛",
+    time: "4 hours ago",
+  },
+];
+
+export default function ImpactTimeLineSection() {
+  return (
+    <Box bg="white" py={{ base: 12, md: 16 }}>
+      <Container maxW="900px" px={{ base: 6, md: 8 }}>
+        {/* Section Header */}
+        <Flex align="center" gap={2} mb={8}>
+          <Icon as={LuTrendingUp} boxSize={6} color="gray.900" />
+          <Heading
+            as="h2"
+            fontSize={{ base: "24px", md: "28px" }}
+            fontWeight="700"
+            color="gray.900"
+          >
+            Impact Timeline
+          </Heading>
+        </Flex>
+
+        {/* Timeline */}
+        <VStack align="stretch" gap={0} position="relative">
+          {/* Vertical Line */}
+          <Box
+            position="absolute"
+            left="11px"
+            top="20px"
+            bottom="20px"
+            w="2px"
+            bg="gray.200"
+          />
+
+          {timelineData.map((item, index) => (
+            <Flex key={index} gap={4} position="relative" pb={6}>
+              {/* Green Dot */}
+              <Box
+                w="24px"
+                h="24px"
+                borderRadius="full"
+                bg="green.500"
+                flexShrink={0}
+                zIndex={1}
+                mt={1}
+              />
+
+              {/* Content Card */}
+              <Box
+                flex={1}
+                bg="white"
+                border="1px solid"
+                borderColor="gray.200"
+                borderRadius="12px"
+                p={5}
+                boxShadow="0 1px 3px rgba(0,0,0,0.05)"
+              >
+                <Flex justify="space-between" align="start" mb={2}>
+                  <Box>
+                    <Text
+                      fontSize="17px"
+                      fontWeight="600"
+                      color="gray.900"
+                      mb={1}
+                    >
+                      {item.name}
+                    </Text>
+                    <Text fontSize="14px" fontWeight="600" color="green.600">
+                      {item.amount} donated
+                    </Text>
+                  </Box>
+                  <Text fontSize="13px" color="gray.500">
+                    {item.time}
+                  </Text>
+                </Flex>
+                <Text fontSize="15px" color="gray.600">
+                  {item.action}
+                </Text>
+              </Box>
+            </Flex>
+          ))}
+        </VStack>
+      </Container>
+    </Box>
+  );
+}
