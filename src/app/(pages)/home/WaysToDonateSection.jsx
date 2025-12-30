@@ -6,10 +6,14 @@ import {
   Text,
   SimpleGrid,
   VStack,
+  Icon,
 } from "@chakra-ui/react";
-import { LuPackage, LuBanknote, LuGift } from "react-icons/lu";
 import { PiTShirtLight } from "react-icons/pi";
-import { LuMail } from "react-icons/lu";
+import { LuMail, LuGift } from "react-icons/lu";
+import { motion } from "framer-motion";
+
+const MotionBox = motion(Box);
+const MotionSimpleGrid = motion(SimpleGrid);
 
 export default function WaysToDonateSection() {
   const donationWays = [
@@ -31,17 +35,24 @@ export default function WaysToDonateSection() {
   ];
 
   return (
-    <Box bg="tertiary.50" py={{ base: 12, md: 16, lg: 20 }}>
+    <Box bg="tertiary.100" py={{ base: 12, md: 16, lg: 20 }}>
       <Container
         maxW="var(--content-max-width)"
         px={{ base: 6, md: 8, lg: 12 }}
       >
         {/* Section Header */}
-        <Box textAlign="center" mb={{ base: 10, md: 12 }}>
+        <MotionBox
+          textAlign="center"
+          mb={{ base: 10, md: 12 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
           <Heading
             as="h2"
             fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-            fontWeight="bold"
+            fontWeight="700"
             color="gray.900"
             mb={3}
           >
@@ -50,22 +61,39 @@ export default function WaysToDonateSection() {
           <Text fontSize={{ base: "md", md: "lg" }} color="gray.600">
             Every contribution counts.
           </Text>
-        </Box>
+        </MotionBox>
 
         {/* Donation Cards */}
-        <SimpleGrid columns={{ base: 1, md: 3 }} gap={{ base: 6, md: 8 }}>
+        <MotionSimpleGrid
+          columns={{ base: 1, md: 3 }}
+          gap={{ base: 6, md: 8 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.15,
+              },
+            },
+          }}
+        >
           {donationWays.map((way, index) => (
-            <Box
+            <MotionBox
               key={index}
               bg="white"
-              borderRadius="xl"
+              borderRadius="20px"
               p={{ base: 8, md: 10 }}
               textAlign="center"
-              boxShadow="sm"
-              transition="all 0.3s"
-              _hover={{
-                boxShadow: "lg",
-                transform: "translateY(-4px)",
+              boxShadow="0 2px 8px rgba(0,0,0,0.06)"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.5 }}
+              whileHover={{
+                y: -8,
+                boxShadow: "0 12px 24px rgba(0,0,0,0.1)",
               }}
             >
               <VStack gap={4}>
@@ -76,7 +104,7 @@ export default function WaysToDonateSection() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Box
+                  <Icon
                     as={way.icon}
                     boxSize={{ base: 12, md: 14 }}
                     strokeWidth={1.5}
@@ -102,9 +130,9 @@ export default function WaysToDonateSection() {
                   {way.description}
                 </Text>
               </VStack>
-            </Box>
+            </MotionBox>
           ))}
-        </SimpleGrid>
+        </MotionSimpleGrid>
       </Container>
     </Box>
   );

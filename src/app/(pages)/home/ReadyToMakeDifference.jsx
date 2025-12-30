@@ -1,6 +1,10 @@
 "use client";
 import { Box, Container, Heading, Text, Button } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { motion } from "framer-motion";
+
+const MotionBox = motion(Box);
+const MotionButton = motion(Button);
 
 export default function ReadyToMakeDifference() {
   return (
@@ -9,12 +13,18 @@ export default function ReadyToMakeDifference() {
         maxW="var(--content-max-width)"
         px={{ base: 6, md: 8, lg: 12 }}
       >
-        <Box textAlign="center">
+        <MotionBox
+          textAlign="center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           {/* Heading */}
           <Heading
             as="h2"
             fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-            fontWeight="bold"
+            fontWeight="700"
             color="white"
             mb={4}
           >
@@ -34,7 +44,7 @@ export default function ReadyToMakeDifference() {
           </Text>
 
           {/* CTA Button */}
-          <Button
+          <MotionButton
             as={NextLink}
             href="/campaigns"
             bg="white"
@@ -44,21 +54,21 @@ export default function ReadyToMakeDifference() {
             py={{ base: 6, md: 7 }}
             fontSize={{ base: "md", md: "lg" }}
             fontWeight="600"
-            borderRadius="lg"
+            borderRadius="12px"
+            boxShadow="0 4px 20px rgba(0,0,0,0.15)"
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
             _hover={{
               bg: "gray.50",
-              transform: "translateY(-2px)",
-              boxShadow: "xl",
             }}
-            _active={{
-              bg: "gray.100",
-              transform: "translateY(0)",
-            }}
-            transition="all 0.3s"
           >
             Start Your Journey
-          </Button>
-        </Box>
+          </MotionButton>
+        </MotionBox>
       </Container>
     </Box>
   );

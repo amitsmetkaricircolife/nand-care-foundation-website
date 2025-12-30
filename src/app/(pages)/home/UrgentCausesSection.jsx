@@ -1,13 +1,31 @@
 "use client";
 import React, { useRef } from "react";
-import { Box, Heading, Text, Container, IconButton } from "@chakra-ui/react";
+import { Box, Heading, Container, IconButton } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import CampaignCard from "@/components/campaigns/CampaignCard";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+
+const CampaignCard = dynamic(
+  () => import("@/components/campaigns/CampaignCard"),
+  {
+    loading: () => (
+      <Box
+        w="320px"
+        h="400px"
+        borderRadius="20px"
+        bg="gray.200"
+        flexShrink={0}
+      />
+    ),
+    ssr: false,
+  }
+);
+
+const MotionBox = motion(Box);
 
 const UrgentCausesSection = () => {
   const scrollRef = useRef(null);
 
-  // Urgent causes campaign images
   const urgentImages = [
     "/images/hero/similar-campaigns1.png",
     "/images/hero/similar-campaigns2.png",
@@ -16,7 +34,6 @@ const UrgentCausesSection = () => {
     "/images/hero/similar-campaigns5.png",
   ];
 
-  // Triple images for infinite scroll effect
   const infiniteImages = [...urgentImages, ...urgentImages, ...urgentImages];
 
   const scroll = (direction) => {
@@ -35,12 +52,19 @@ const UrgentCausesSection = () => {
         maxW="var(--content-max-width)"
         px={{ base: 6, md: 8, lg: 12 }}
       >
-        {/* Section Header */}
-        <Box textAlign="center" mb={{ base: 8, md: 12 }}>
+        {/* Section Header with Animation */}
+        <MotionBox
+          textAlign="center"
+          mb={{ base: 8, md: 12 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
           <Heading
             as="h2"
             fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-            fontWeight="bold"
+            fontWeight="700"
             color="gray.900"
             mb={3}
           >
@@ -50,11 +74,10 @@ const UrgentCausesSection = () => {
             </Box>{" "}
             right now
           </Heading>
-        </Box>
+        </MotionBox>
 
         {/* Carousel */}
         <Box position="relative">
-          {/* Previous Button */}
           <Box
             position="absolute"
             top="50%"
@@ -87,7 +110,6 @@ const UrgentCausesSection = () => {
             </IconButton>
           </Box>
 
-          {/* Next Button */}
           <Box
             position="absolute"
             top="50%"
@@ -120,7 +142,6 @@ const UrgentCausesSection = () => {
             </IconButton>
           </Box>
 
-          {/* Carousel Container */}
           <Box
             ref={scrollRef}
             overflow="auto"
@@ -141,6 +162,7 @@ const UrgentCausesSection = () => {
                   <CampaignCard
                     imageSrc={image}
                     alt={`Urgent Campaign ${(index % urgentImages.length) + 1}`}
+                    loading={index < 3 ? "eager" : "lazy"}
                   />
                 </Box>
               ))}

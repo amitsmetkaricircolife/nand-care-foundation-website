@@ -1,4 +1,3 @@
-// components/home/HowItWorksSection.jsx
 "use client";
 import {
   Box,
@@ -7,8 +6,13 @@ import {
   Text,
   SimpleGrid,
   VStack,
+  Icon,
 } from "@chakra-ui/react";
 import { LuMail, LuHeart, LuTrendingUp } from "react-icons/lu";
+import { motion } from "framer-motion";
+
+const MotionBox = motion(Box);
+const MotionSimpleGrid = motion(SimpleGrid);
 
 export default function HowItWorksSection() {
   const steps = [
@@ -39,24 +43,31 @@ export default function HowItWorksSection() {
         px={{ base: 6, md: 8, lg: 12 }}
       >
         {/* Heading */}
-        <Heading
-          as="h2"
-          fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-          textAlign="center"
-          mb={2}
-          fontWeight="bold"
-          color="gray.900"
+        <MotionBox
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
         >
-          How It Works
-        </Heading>
-        <Text
-          fontSize={{ base: "md", md: "lg" }}
-          color="gray.600"
-          textAlign="center"
-          mb={{ base: 10, md: 12 }}
-        >
-          Three easy steps to change lives.
-        </Text>
+          <Heading
+            as="h2"
+            fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
+            textAlign="center"
+            mb={2}
+            fontWeight="700"
+            color="gray.900"
+          >
+            How It Works
+          </Heading>
+          <Text
+            fontSize={{ base: "md", md: "lg" }}
+            color="gray.600"
+            textAlign="center"
+            mb={{ base: 10, md: 12 }}
+          >
+            Three easy steps to change lives.
+          </Text>
+        </MotionBox>
 
         <Box position="relative">
           {/* Horizontal gradient line behind icons (desktop only) */}
@@ -72,62 +83,80 @@ export default function HowItWorksSection() {
             opacity={0.4}
           />
 
-          <SimpleGrid
+          <MotionSimpleGrid
             columns={{ base: 1, md: 3 }}
             gap={{ base: 10, md: 12 }}
             alignItems="flex-start"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
           >
             {steps.map((step, index) => (
-              <VStack
+              <MotionBox
                 key={index}
-                textAlign="center"
-                gap={4}
-                align="center"
-                position="relative"
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.5 }}
               >
-                {/* Icon circle */}
-                <Box
+                <VStack
+                  textAlign="center"
+                  gap={4}
+                  align="center"
                   position="relative"
-                  zIndex={1}
-                  w={{ base: "72px", md: "88px" }}
-                  h={{ base: "72px", md: "88px" }}
-                  borderRadius="full"
-                  bg="secondary.500"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  boxShadow="0 18px 40px rgba(0,0,0,0.15)"
                 >
+                  {/* Icon circle */}
                   <Box
-                    as={step.icon}
-                    boxSize={{ base: 8, md: 9 }}
-                    color="white"
-                  />
-                </Box>
+                    position="relative"
+                    zIndex={1}
+                    w={{ base: "72px", md: "88px" }}
+                    h={{ base: "72px", md: "88px" }}
+                    borderRadius="full"
+                    bg="secondary.500"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    boxShadow="0 8px 24px rgba(0,0,0,0.12)"
+                  >
+                    <Icon
+                      as={step.icon}
+                      boxSize={{ base: 8, md: 9 }}
+                      color="white"
+                    />
+                  </Box>
 
-                {/* Title */}
-                <Heading
-                  as="h3"
-                  fontSize={{ base: "lg", md: "xl" }}
-                  fontWeight="600"
-                  color="gray.900"
-                  mt={1}
-                >
-                  {step.title}
-                </Heading>
+                  {/* Title */}
+                  <Heading
+                    as="h3"
+                    fontSize={{ base: "lg", md: "xl" }}
+                    fontWeight="600"
+                    color="gray.900"
+                    mt={1}
+                  >
+                    {step.title}
+                  </Heading>
 
-                {/* Description */}
-                <Text
-                  fontSize={{ base: "sm", md: "md" }}
-                  color="gray.600"
-                  maxW={{ base: "280px", md: "320px" }}
-                  lineHeight="1.7"
-                >
-                  {step.description}
-                </Text>
-              </VStack>
+                  {/* Description */}
+                  <Text
+                    fontSize={{ base: "sm", md: "md" }}
+                    color="gray.600"
+                    maxW={{ base: "280px", md: "320px" }}
+                    lineHeight="1.7"
+                  >
+                    {step.description}
+                  </Text>
+                </VStack>
+              </MotionBox>
             ))}
-          </SimpleGrid>
+          </MotionSimpleGrid>
         </Box>
       </Container>
     </Box>
