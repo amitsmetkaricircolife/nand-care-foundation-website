@@ -7,9 +7,21 @@ import {
   Text,
   VStack,
   Accordion,
+  Flex,
+  Icon,
 } from "@chakra-ui/react";
 import PageLayout from "@/components/layout/PageLayout";
-import { LuChevronDown } from "react-icons/lu";
+import { motion } from "framer-motion";
+
+import {
+  IoChevronDownOutline,
+  IoMailOutline,
+  IoPhonePortraitOutline,
+  IoHelpCircleOutline,
+} from "react-icons/io5";
+
+const MotionBox = motion(Box);
+const MotionVStack = motion(VStack);
 
 export default function FAQsPage() {
   const faqs = [
@@ -61,86 +73,142 @@ export default function FAQsPage() {
     {
       question: "How can I contact Nand Care Foundation?",
       answer:
-        "You can reach us via email at [info@nandcare.org](mailto:info@nandcare.org), call us at +91 (800) 123-4567, or use the contact form on our website. Our support team is available Monday to Friday, 9 AM to 6 PM IST.",
+        "You can reach us via email at info@nandcare.org, call us at +91 (800) 123-4567, or use the contact form on our website. Our support team is available Monday to Friday, 9 AM to 6 PM IST.",
     },
   ];
 
   return (
     <PageLayout transparentHeader={false}>
       <Box pt="var(--header-height)">
-        {/* Hero Section */}
-        <Box bg="tertiary.200" py={{ base: 16, md: 20 }}>
+        {/* Hero Section with Animation */}
+        <MotionBox
+          bg="tertiary.200"
+          py={{ base: 16, md: 20 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <Container
             maxW="var(--content-max-width)"
             px={{ base: 6, md: 8, lg: 12 }}
             textAlign="center"
           >
-            <Heading
-              as="h1"
-              fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-              color="gray.900"
-              mb={4}
+            <MotionBox
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Frequently Asked Questions
-            </Heading>
-            <Text
-              fontSize={{ base: "lg", md: "xl" }}
-              color="gray.700"
-              maxW="700px"
-              mx="auto"
-            >
-              Find answers to common questions about donations, campaigns, and
-              our services.
-            </Text>
+              {/* <Flex justify="center" mb={4}>
+                <Box
+                  bg="white"
+                  p={4}
+                  borderRadius="full"
+                  boxShadow="lg"
+                  display="inline-flex"
+                >
+                  <Icon
+                    as={IoHelpCircleOutline}
+                    boxSize={10}
+                    color="primary.500"
+                  />
+                </Box>
+              </Flex> */}
+              <Heading
+                as="h1"
+                fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+                color="gray.900"
+                mb={4}
+              >
+                Frequently Asked Questions
+              </Heading>
+              <Text
+                fontSize={{ base: "lg", md: "xl" }}
+                color="gray.700"
+                maxW="700px"
+                mx="auto"
+              >
+                Find answers to common questions about donations, campaigns, and
+                our services.
+              </Text>
+            </MotionBox>
           </Container>
-        </Box>
+        </MotionBox>
 
-        {/* FAQs */}
+        {/* FAQs with Stagger Animation */}
         <Box py={{ base: 12, md: 16, lg: 20 }}>
           <Container maxW="900px" px={{ base: 6, md: 8, lg: 12 }}>
             <Accordion.Root collapsible multiple>
-              <VStack gap={4} align="stretch">
+              <MotionVStack
+                gap={4}
+                align="stretch"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.08,
+                    },
+                  },
+                }}
+              >
                 {faqs.map((faq, index) => (
-                  <Accordion.Item
+                  <MotionBox
                     key={index}
-                    value={`faq-${index}`}
-                    bg="white"
-                    border="1px solid"
-                    borderColor="gray.200"
-                    borderRadius="lg"
-                    overflow="hidden"
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.4 }}
                   >
-                    <Accordion.ItemTrigger
-                      p={6}
-                      cursor="pointer"
-                      _hover={{ bg: "gray.50" }}
-                      transition="all 0.2s"
+                    <Accordion.Item
+                      value={`faq-${index}`}
+                      bg="white"
+                      border="1px solid"
+                      borderColor="gray.200"
+                      borderRadius="lg"
+                      overflow="hidden"
+                      style={{ willChange: "transform" }}
                     >
-                      <Box flex="1" textAlign="left">
-                        <Text fontSize="lg" fontWeight="600" color="gray.900">
-                          {faq.question}
-                        </Text>
-                      </Box>
-                      <Accordion.ItemIndicator>
-                        <LuChevronDown />
-                      </Accordion.ItemIndicator>
-                    </Accordion.ItemTrigger>
-                    <Accordion.ItemContent>
-                      <Box px={6} pb={6}>
-                        <Text fontSize="md" color="gray.700" lineHeight="1.8">
-                          {faq.answer}
-                        </Text>
-                      </Box>
-                    </Accordion.ItemContent>
-                  </Accordion.Item>
+                      <Accordion.ItemTrigger
+                        p={6}
+                        cursor="pointer"
+                        bg="gray.100"
+                        _hover={{ bg: "gray.200" }}
+                        transition="all 0.2s"
+                      >
+                        <Box flex="1" textAlign="left">
+                          <Text fontSize="lg" fontWeight="600" color="gray.900">
+                            {faq.question}
+                          </Text>
+                        </Box>
+                        <Accordion.ItemIndicator>
+                          <IoChevronDownOutline />
+                        </Accordion.ItemIndicator>
+                      </Accordion.ItemTrigger>
+                      <Accordion.ItemContent>
+                        <Box px={6} pb={6}>
+                          <Text fontSize="md" color="gray.700" lineHeight="1.8">
+                            {faq.answer}
+                          </Text>
+                        </Box>
+                      </Accordion.ItemContent>
+                    </Accordion.Item>
+                  </MotionBox>
                 ))}
-              </VStack>
+              </MotionVStack>
             </Accordion.Root>
           </Container>
         </Box>
 
-        {/* Still Have Questions */}
-        <Box bg="primary.50" py={{ base: 12, md: 16 }}>
+        {/* Still Have Questions with Animation */}
+        <MotionBox
+          bg="primary.50"
+          py={{ base: 12, md: 16 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <Container
             maxW="var(--content-max-width)"
             px={{ base: 6, md: 8, lg: 12 }}
@@ -157,17 +225,53 @@ export default function FAQsPage() {
                 Can't find the answer you're looking for? Our support team is
                 here to help.
               </Text>
-              <Box>
-                <Text fontSize="md" color="gray.800" fontWeight="600">
-                  📧 Email: info@nandcare.org
-                </Text>
-                <Text fontSize="md" color="gray.800" fontWeight="600" mt={2}>
-                  📞 Phone: +91 (800) 123-4567
-                </Text>
-              </Box>
+              <VStack gap={2} mt={2}>
+                <MotionBox
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Flex align="center" gap={2}>
+                    <Icon as={IoMailOutline} boxSize={5} color="gray.700" />
+                    <Text
+                      fontSize="md"
+                      color="gray.800"
+                      fontWeight="600"
+                      as="a"
+                      href="mailto:info@nandcare.org"
+                      _hover={{ color: "primary.500" }}
+                      transition="color 0.2s"
+                    >
+                      info@nandcare.org
+                    </Text>
+                  </Flex>
+                </MotionBox>
+                <MotionBox
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Flex align="center" gap={2}>
+                    <Icon
+                      as={IoPhonePortraitOutline}
+                      boxSize={5}
+                      color="gray.700"
+                    />
+                    <Text
+                      fontSize="md"
+                      color="gray.800"
+                      fontWeight="600"
+                      as="a"
+                      href="tel:+918001234567"
+                      _hover={{ color: "primary.500" }}
+                      transition="color 0.2s"
+                    >
+                      +91 (800) 123-4567
+                    </Text>
+                  </Flex>
+                </MotionBox>
+              </VStack>
             </VStack>
           </Container>
-        </Box>
+        </MotionBox>
       </Box>
     </PageLayout>
   );
