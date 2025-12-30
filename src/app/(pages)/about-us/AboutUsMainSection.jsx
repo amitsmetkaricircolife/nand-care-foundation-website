@@ -9,30 +9,97 @@ import {
   VStack,
   Icon,
 } from "@chakra-ui/react";
-
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { LiaDotCircleSolid } from "react-icons/lia";
 import { TbWorld } from "react-icons/tb";
 import { FaRegHeart } from "react-icons/fa";
 import { PiMedal } from "react-icons/pi";
 
+const MotionBox = motion(Box);
+const MotionSimpleGrid = motion(SimpleGrid);
+
 export default function AboutUsMainSection() {
+  const coreValues = [
+    {
+      icon: FaRegHeart,
+      title: "Compassion First",
+      description:
+        "Every action we take is rooted in genuine care for communities and their needs.",
+      color: "red",
+    },
+    {
+      icon: PiMedal,
+      title: "Unwavering Integrity",
+      description:
+        "We maintain the highest standards of transparency and ethical practices.",
+      color: "blue",
+    },
+    {
+      icon: FaRegHeart,
+      title: "Community Driven",
+      description:
+        "Local communities lead their campaigns; we provide the platform & support.",
+      color: "green",
+    },
+    {
+      icon: PiMedal,
+      title: "Impact Focussed",
+      description:
+        "We measure success by the tangible, lasting change we create together.",
+      color: "orange",
+    },
+    {
+      icon: FaRegHeart,
+      title: "Accountability & Trust",
+      description:
+        "Every rupee is tracked, every promise is kept, every outcome is documented.",
+      color: "purple",
+    },
+    {
+      icon: PiMedal,
+      title: "Inclusive Growth",
+      description:
+        "We believe everyone deserves opportunity, regardless of background.",
+      color: "teal",
+    },
+  ];
+
   return (
     <Box bg="white">
-      {/* Hero Section */}
-      <Box
+      {/* Hero Section with Optimized Image */}
+      <MotionBox
         position="relative"
         h={{ base: "400px", md: "500px" }}
-        bgImage="url('/images/about-us/Background.jpg')"
-        bgSize="cover"
-        bgPosition="center"
-        bgRepeat="no-repeat"
-        _before={{
-          content: '""',
-          position: "absolute",
-          inset: 0,
-          bg: "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5))",
-        }}
+        overflow="hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
+        {/* Optimized Background Image with Next.js Image */}
+        <Image
+          src="/images/about-us/Background.jpg"
+          alt="About NandCare Foundation"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+        />
+        {/* Dark Overlay */}
+        <Box
+          position="absolute"
+          inset={0}
+          bg="linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5))"
+          zIndex={1}
+        />
+
+        {/* Hero Content */}
         <Container
           maxW="var(--content-max-width)"
           h="100%"
@@ -41,40 +108,69 @@ export default function AboutUsMainSection() {
           justifyContent="center"
           alignItems="center"
           position="relative"
-          zIndex={1}
+          zIndex={2}
           px={{ base: 6, md: 8 }}
         >
-          <Heading
-            as="h1"
-            fontSize={{ base: "40px", md: "56px", lg: "64px" }}
-            fontWeight="700"
-            color="white"
+          <MotionBox
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             textAlign="center"
-            lineHeight="1.2"
-            mb={3}
           >
-            About{" "}
-            <Box as="span" color="beige.700">
-              NandCare
-            </Box>
-          </Heading>
-          <Text color="white" textAlign="center" maxW="800px" fontWeight="400">
-            Building bridges between compassionate hearts and communities in
-            need.
-          </Text>
+            <Heading
+              as="h1"
+              fontSize={{ base: "40px", md: "56px", lg: "64px" }}
+              fontWeight="700"
+              color="white"
+              lineHeight="1.2"
+              mb={3}
+            >
+              About{" "}
+              <Box as="span" color="beige.700">
+                NandCare
+              </Box>
+            </Heading>
+            <Text
+              color="white"
+              textAlign="center"
+              maxW="800px"
+              fontWeight="400"
+            >
+              Building bridges between compassionate hearts and communities in
+              need.
+            </Text>
+          </MotionBox>
         </Container>
-      </Box>
+      </MotionBox>
 
       {/* Mission & Vision Section */}
       <Box bg="gray.50" py={{ base: 16, md: 20 }}>
         <Container maxW="var(--content-max-width)" px={{ base: 6, md: 8 }}>
-          <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 8, md: 12 }}>
+          <MotionSimpleGrid
+            columns={{ base: 1, md: 2 }}
+            gap={{ base: 8, md: 12 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+          >
             {/* Our Mission */}
-            <Box
+            <MotionBox
               bg="white"
               p={{ base: 8, md: 10 }}
               borderRadius="20px"
               boxShadow="0 2px 12px rgba(0,0,0,0.08)"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.5 }}
             >
               <Box
                 w="64px"
@@ -107,14 +203,19 @@ export default function AboutUsMainSection() {
                 contribution makes a measurable impact in transforming lives and
                 building sustainable communities.
               </Text>
-            </Box>
+            </MotionBox>
 
             {/* Our Vision */}
-            <Box
+            <MotionBox
               bg="white"
               p={{ base: 8, md: 10 }}
               borderRadius="20px"
               boxShadow="0 2px 12px rgba(0,0,0,0.08)"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.5 }}
             >
               <Box
                 w="64px"
@@ -143,270 +244,136 @@ export default function AboutUsMainSection() {
                 opportunities to thrive—powered by a global community of
                 compassionate changemakers.
               </Text>
-            </Box>
-          </SimpleGrid>
+            </MotionBox>
+          </MotionSimpleGrid>
         </Container>
       </Box>
 
       {/* Our Story Section */}
       <Box bg="white" py={{ base: 16, md: 20 }}>
         <Container maxW="900px" px={{ base: 6, md: 8 }}>
-          <Heading
-            as="h2"
-            fontSize={{ base: "32px", md: "40px" }}
-            fontWeight="700"
-            color="gray.900"
-            textAlign="center"
-            mb={8}
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
           >
-            Our Story
-          </Heading>
-          <VStack spacing={6} align="stretch">
-            <Text fontSize="16px" color="gray.600" lineHeight="1.8">
-              NandCare was born from a simple belief: that genuine compassion,
-              when channeled effectively, can create extraordinary change.
-              Founded in 2020 by a group of social entrepreneurs and community
-              leaders, we saw the gap between people wanting to help and
-              verified causes needing support.
-            </Text>
-            <Text fontSize="16px" color="gray.600" lineHeight="1.8">
-              What started as a small initiative helping 50 families during the
-              pandemic has grown into a movement connecting thousands of donors
-              with hundreds of life-changing campaigns. Our platform combines
-              cutting-edge technology with grassroots community knowledge to
-              ensure transparency, efficiency, and real impact.
-            </Text>
-            <Text fontSize="16px" color="gray.600" lineHeight="1.8">
-              Today, NandCare stands as a testament to what's possible when
-              technology meets humanity—where every click, every donation, and
-              every share creates ripples of positive change across communities
-              in need.
-            </Text>
-          </VStack>
+            <Heading
+              as="h2"
+              fontSize={{ base: "32px", md: "40px" }}
+              fontWeight="700"
+              color="gray.900"
+              textAlign="center"
+              mb={8}
+            >
+              Our Story
+            </Heading>
+            <VStack spacing={6} align="stretch">
+              <Text fontSize="16px" color="gray.600" lineHeight="1.8">
+                NandCare was born from a simple belief: that genuine compassion,
+                when channeled effectively, can create extraordinary change.
+                Founded in 2020 by a group of social entrepreneurs and community
+                leaders, we saw the gap between people wanting to help and
+                verified causes needing support.
+              </Text>
+              <Text fontSize="16px" color="gray.600" lineHeight="1.8">
+                What started as a small initiative helping 50 families during
+                the pandemic has grown into a movement connecting thousands of
+                donors with hundreds of life-changing campaigns. Our platform
+                combines cutting-edge technology with grassroots community
+                knowledge to ensure transparency, efficiency, and real impact.
+              </Text>
+              <Text fontSize="16px" color="gray.600" lineHeight="1.8">
+                Today, NandCare stands as a testament to what's possible when
+                technology meets humanity—where every click, every donation, and
+                every share creates ripples of positive change across
+                communities in need.
+              </Text>
+            </VStack>
+          </MotionBox>
         </Container>
       </Box>
 
       {/* Core Values Section */}
       <Box bg="gray.50" py={{ base: 16, md: 20 }}>
         <Container maxW="var(--content-max-width)" px={{ base: 6, md: 8 }}>
-          <Heading
-            as="h2"
-            fontSize={{ base: "32px", md: "40px" }}
-            fontWeight="700"
-            color="gray.900"
-            textAlign="center"
-            mb={12}
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            Our Core Values
-          </Heading>
-          <SimpleGrid
+            <Heading
+              as="h2"
+              fontSize={{ base: "32px", md: "40px" }}
+              fontWeight="700"
+              color="gray.900"
+              textAlign="center"
+              mb={12}
+            >
+              Our Core Values
+            </Heading>
+          </MotionBox>
+
+          <MotionSimpleGrid
             columns={{ base: 1, md: 2, lg: 2 }}
             gap={{ base: 6, md: 8 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
           >
-            {/* Compassion First */}
-            <Box
-              bg="white"
-              p={8}
-              borderRadius="20px"
-              boxShadow="0 2px 8px rgba(0,0,0,0.06)"
-            >
-              <Box
-                w="56px"
-                h="56px"
-                borderRadius="14px"
-                bg="red.50"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                mb={5}
+            {coreValues.map((value, index) => (
+              <MotionBox
+                key={index}
+                bg="white"
+                p={8}
+                borderRadius="20px"
+                boxShadow="0 2px 8px rgba(0,0,0,0.06)"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.4 }}
+                whileHover={{ y: -4 }}
               >
-                <Icon as={FaRegHeart} boxSize={7} color="red.500" />
-              </Box>
-              <Heading
-                as="h3"
-                fontSize="20px"
-                fontWeight="700"
-                color="gray.900"
-                mb={3}
-              >
-                Compassion First
-              </Heading>
-              <Text fontSize="15px" color="gray.600" lineHeight="1.7">
-                Every action we take is rooted in genuine care for communities
-                and their needs.
-              </Text>
-            </Box>
-
-            {/* Unwavering Integrity */}
-            <Box
-              bg="white"
-              p={8}
-              borderRadius="20px"
-              boxShadow="0 2px 8px rgba(0,0,0,0.06)"
-            >
-              <Box
-                w="56px"
-                h="56px"
-                borderRadius="14px"
-                bg="blue.50"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                mb={5}
-              >
-                <Icon as={PiMedal} boxSize={7} color="blue.500" />
-              </Box>
-              <Heading
-                as="h3"
-                fontSize="20px"
-                fontWeight="700"
-                color="gray.900"
-                mb={3}
-              >
-                Unwavering Integrity
-              </Heading>
-              <Text fontSize="15px" color="gray.600" lineHeight="1.7">
-                We maintain the highest standards of transparency and ethical
-                practices.
-              </Text>
-            </Box>
-
-            {/* Community Driven */}
-            <Box
-              bg="white"
-              p={8}
-              borderRadius="20px"
-              boxShadow="0 2px 8px rgba(0,0,0,0.06)"
-            >
-              <Box
-                w="56px"
-                h="56px"
-                borderRadius="14px"
-                bg="green.50"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                mb={5}
-              >
-                <Icon as={FaRegHeart} boxSize={7} color="green.500" />
-              </Box>
-              <Heading
-                as="h3"
-                fontSize="20px"
-                fontWeight="700"
-                color="gray.900"
-                mb={3}
-              >
-                Community Driven
-              </Heading>
-              <Text fontSize="15px" color="gray.600" lineHeight="1.7">
-                Local communities lead their campaigns; we provide the platform
-                & support.
-              </Text>
-            </Box>
-
-            {/* Impact Focussed */}
-            <Box
-              bg="white"
-              p={8}
-              borderRadius="20px"
-              boxShadow="0 2px 8px rgba(0,0,0,0.06)"
-            >
-              <Box
-                w="56px"
-                h="56px"
-                borderRadius="14px"
-                bg="orange.50"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                mb={5}
-              >
-                <Icon as={PiMedal} boxSize={7} color="orange.500" />
-              </Box>
-              <Heading
-                as="h3"
-                fontSize="20px"
-                fontWeight="700"
-                color="gray.900"
-                mb={3}
-              >
-                Impact Focussed
-              </Heading>
-              <Text fontSize="15px" color="gray.600" lineHeight="1.7">
-                We measure success by the tangible, lasting change we create
-                together.
-              </Text>
-            </Box>
-
-            {/* Accountability & Trust */}
-            <Box
-              bg="white"
-              p={8}
-              borderRadius="20px"
-              boxShadow="0 2px 8px rgba(0,0,0,0.06)"
-            >
-              <Box
-                w="56px"
-                h="56px"
-                borderRadius="14px"
-                bg="purple.50"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                mb={5}
-              >
-                <Icon as={FaRegHeart} boxSize={7} color="purple.500" />
-              </Box>
-              <Heading
-                as="h3"
-                fontSize="20px"
-                fontWeight="700"
-                color="gray.900"
-                mb={3}
-              >
-                Accountability & Trust
-              </Heading>
-              <Text fontSize="15px" color="gray.600" lineHeight="1.7">
-                Every rupee is tracked, every promise is kept, every outcome is
-                documented.
-              </Text>
-            </Box>
-
-            {/* Inclusive Growth */}
-            <Box
-              bg="white"
-              p={8}
-              borderRadius="20px"
-              boxShadow="0 2px 8px rgba(0,0,0,0.06)"
-            >
-              <Box
-                w="56px"
-                h="56px"
-                borderRadius="14px"
-                bg="teal.50"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                mb={5}
-              >
-                <Icon as={PiMedal} boxSize={7} color="teal.500" />
-              </Box>
-              <Heading
-                as="h3"
-                fontSize="20px"
-                fontWeight="700"
-                color="gray.900"
-                mb={3}
-              >
-                Inclusive Growth
-              </Heading>
-              <Text fontSize="15px" color="gray.600" lineHeight="1.7">
-                We believe everyone deserves opportunity, regardless of
-                background.
-              </Text>
-            </Box>
-          </SimpleGrid>
+                <Box
+                  w="56px"
+                  h="56px"
+                  borderRadius="14px"
+                  bg={`${value.color}.50`}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  mb={5}
+                >
+                  <Icon
+                    as={value.icon}
+                    boxSize={7}
+                    color={`${value.color}.500`}
+                  />
+                </Box>
+                <Heading
+                  as="h3"
+                  fontSize="20px"
+                  fontWeight="700"
+                  color="gray.900"
+                  mb={3}
+                >
+                  {value.title}
+                </Heading>
+                <Text fontSize="15px" color="gray.600" lineHeight="1.7">
+                  {value.description}
+                </Text>
+              </MotionBox>
+            ))}
+          </MotionSimpleGrid>
         </Container>
       </Box>
     </Box>
